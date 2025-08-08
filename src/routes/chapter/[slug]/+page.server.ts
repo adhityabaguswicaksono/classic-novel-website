@@ -45,17 +45,20 @@ function replaceFootnoteRefs(html: string): string {
 	});
 }
 
-export async function load({ params, fetch }): Promise<ChapterData> {
+export async function load({ params, fetch, url }): Promise<ChapterData> {
 	const slug = params.slug;
 
 	try {
+		const baseUrl = url.origin; // Dapat origin, misal https://namasite.vercel.app
+
 		// Ambil daftar file dari static
-		const listRes = await fetch('/chapters/index.json');
+		const listRes = await fetch(`${baseUrl}/chapters/index.json`);
+		if (!listRes.ok) throw new Error('Gagal ambil index.json');
 		const files: string[] = await listRes.json();
 		const slugs = files.map((f) => f.replace('.md', '')).sort();
 
 		// Ambil markdown dari static
-		const fileRes = await fetch(`/chapters/${slug}.md`);
+		const fileRes = await fetch(`${baseUrl}/chapters/${slug}.md`);
 		if (!fileRes.ok) {
 			return { content: '<h1>Not Found</h1>', slug, slugs, chapter: '', title: 'Tanpa Judul' };
 		}
