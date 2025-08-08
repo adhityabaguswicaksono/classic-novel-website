@@ -78,48 +78,44 @@ function replaceFootnoteRefs(html: string): string {
 // 	}
 // }
 
-// ==== Baca semua file markdown sekali saat build ====
-const folder = path.resolve('src/lib/chapters');
-const allSlugs = fs
-	.readdirSync(folder)
-	.filter((f) => f.endsWith('.md'))
-	.map((f) => f.replace('.md', ''))
-	.sort();
+export async function load({ params, fetch }) {
+	const slug = params.slug;
 
-const chapterData = Object.fromEntries(
-	allSlugs.map((slug) => {
-		const filePath = path.join(folder, `${slug}.md`);
-		const file = fs.readFileSync(filePath, 'utf-8');
+	try {
+		// Ambil daftar file dari static
+		const listRes = await fetch('/chapters/index.json');
+		const files = await listRes.json();
+		const slugs = files.map((f) => f.replace('.md', '')).sort();
+
+		// Ambil konten file markdown
+		const fileRes = await fetch(`/chapters/${slug}.md`);
+		if (!fileRes.ok) {
+			return { content: '<h1>Not Found</h1>' };
+		}
+
+		const file = await fileRes.text();
 		const { content, data } = matter(file);
 
+		// Proses footnote sebelum markdown dirender
 		const { markdownWithoutFootnotes, footnotesHtml } = extractAndReplaceFootnotes(content);
+
+		// Render markdown normal
 		const rendered = marked(markdownWithoutFootnotes);
 		const renderedWithRefs = replaceFootnoteRefs(String(rendered));
+
 		const finalHtml = renderedWithRefs + footnotesHtml;
 
-		return [
+		return {
+			content: finalHtml,
 			slug,
-			{
-				content: finalHtml,
-				slug,
-				chapter: data.chapter ?? '',
-				title: data.title ?? 'Tanpa Judul'
-			}
-		];
-	})
-);
-
-// ==== Loader ====
-export function load({ params }) {
-	const slug = params.slug;
-	const found = chapterData[slug];
-
-	if (!found) {
-		return { content: '<h1>Not Found</h1>', slug, slugs: allSlugs };
+			slugs,
+			chapter: data.chapter ?? '',
+			title: data.title ?? 'Tanpa Judul'
+		};
+	} catch (err) {
+		console.error(err);
+		return {
+			content: '<h1>Not Found</h1>'
+		};
 	}
-
-	return {
-		...found,
-		slugs: allSlugs
-	};
 }

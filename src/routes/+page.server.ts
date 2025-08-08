@@ -24,29 +24,27 @@
 // 	};
 // }
 
-import { readFileSync, readdirSync } from 'fs';
-import path from 'path';
 import matter from 'gray-matter';
 
-const folder = path.resolve('src/lib/chapters'); // pastikan absolute path
-const files = readdirSync(folder).filter((f) => f.endsWith('.md'));
+export async function load({ fetch }) {
+	const res = await fetch('/chapters/index.json');
+	const files = await res.json();
 
-const chapters = files
-	.map((filename) => {
-		const slug = filename.replace('.md', '');
-		const fullPath = path.join(folder, filename);
-		const content = readFileSync(fullPath, 'utf-8');
+	const chapters = [];
+
+	for (const filename of files) {
+		const fileRes = await fetch(`/chapters/${filename}`);
+		const content = await fileRes.text();
 		const { data } = matter(content);
 
-		return {
-			slug,
+		chapters.push({
+			slug: filename.replace('.md', ''),
 			chapter: data.chapter ?? '',
 			title: data.title ?? 'Tanpa Judul'
-		};
-	})
-	.sort((a, b) => a.slug.localeCompare(b.slug));
+		});
+	}
 
-// baca di *module scope* → dijalankan saat build, bukan runtime
-export function load() {
-	return { chapters };
+	return {
+		chapters: chapters.sort((a, b) => a.slug.localeCompare(b.slug))
+	};
 }
