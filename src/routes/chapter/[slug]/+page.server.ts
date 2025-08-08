@@ -43,37 +43,83 @@ function replaceFootnoteRefs(html: string): string {
 	});
 }
 
-export async function load({ params }) {
-	const slug = params.slug;
-	const filePath = path.resolve('src/lib/chapters', `${slug}.md`);
+// export async function load({ params }) {
+// 	const slug = params.slug;
+// 	const filePath = path.resolve('src/lib/chapters', `${slug}.md`);
 
-	try {
+// 	try {
+// 		const file = fs.readFileSync(filePath, 'utf-8');
+// 		const { content, data } = matter(file);
+
+// 		// Proses footnote sebelum markdown dirender
+// 		const { markdownWithoutFootnotes, footnotesHtml } = extractAndReplaceFootnotes(content);
+
+// 		// Render markdown normal
+// 		const rendered = marked(markdownWithoutFootnotes);
+// 		const renderedWithRefs = replaceFootnoteRefs(String(rendered));
+
+// 		const finalHtml = renderedWithRefs + footnotesHtml;
+
+// 		const files = fs.readdirSync('src/lib/chapters');
+// 		const slugs = files.map((f) => f.replace('.md', '')).sort();
+
+// 		return {
+// 			content: finalHtml,
+// 			slug,
+// 			slugs,
+// 			chapter: data.chapter ?? '',
+// 			title: data.title ?? 'Tanpa Judul'
+// 		};
+// 	} catch (err) {
+// 		console.error(err);
+// 		return {
+// 			content: '<h1>Not Found</h1>'
+// 		};
+// 	}
+// }
+
+// ==== Baca semua file markdown sekali saat build ====
+const folder = path.resolve('src/lib/chapters');
+const allSlugs = fs
+	.readdirSync(folder)
+	.filter((f) => f.endsWith('.md'))
+	.map((f) => f.replace('.md', ''))
+	.sort();
+
+const chapterData = Object.fromEntries(
+	allSlugs.map((slug) => {
+		const filePath = path.join(folder, `${slug}.md`);
 		const file = fs.readFileSync(filePath, 'utf-8');
 		const { content, data } = matter(file);
 
-		// Proses footnote sebelum markdown dirender
 		const { markdownWithoutFootnotes, footnotesHtml } = extractAndReplaceFootnotes(content);
-
-		// Render markdown normal
 		const rendered = marked(markdownWithoutFootnotes);
 		const renderedWithRefs = replaceFootnoteRefs(String(rendered));
-
 		const finalHtml = renderedWithRefs + footnotesHtml;
 
-		const files = fs.readdirSync('src/lib/chapters');
-		const slugs = files.map((f) => f.replace('.md', '')).sort();
-
-		return {
-			content: finalHtml,
+		return [
 			slug,
-			slugs,
-			chapter: data.chapter ?? '',
-			title: data.title ?? 'Tanpa Judul'
-		};
-	} catch (err) {
-		console.error(err);
-		return {
-			content: '<h1>Not Found</h1>'
-		};
+			{
+				content: finalHtml,
+				slug,
+				chapter: data.chapter ?? '',
+				title: data.title ?? 'Tanpa Judul'
+			}
+		];
+	})
+);
+
+// ==== Loader ====
+export function load({ params }) {
+	const slug = params.slug;
+	const found = chapterData[slug];
+
+	if (!found) {
+		return { content: '<h1>Not Found</h1>', slug, slugs: allSlugs };
 	}
+
+	return {
+		...found,
+		slugs: allSlugs
+	};
 }
