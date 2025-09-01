@@ -2,7 +2,8 @@
 	import favicon from '$lib/assets/faviconKBK.svg';
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { ScrollTrigger } from 'gsap/all';
+
 	gsap.registerPlugin(ScrollTrigger);
 
 	const props = $props();
