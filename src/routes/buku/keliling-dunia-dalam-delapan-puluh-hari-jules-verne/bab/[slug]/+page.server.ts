@@ -45,7 +45,9 @@ function replaceFootnoteRefs(html: string): string {
 
 export async function load({ params }) {
 	const slug = params.slug;
-	const filePath = path.resolve('src/lib/chapters', `${slug}.md`);
+
+	const folder = 'src/lib/resources/keliling-dunia-dalam-delapan-puluh-hari-jules-verne';
+	const filePath = path.resolve(folder, `${slug}.md`);
 
 	try {
 		const file = fs.readFileSync(filePath, 'utf-8');
@@ -60,7 +62,7 @@ export async function load({ params }) {
 
 		const finalHtml = renderedWithRefs + footnotesHtml;
 
-		const files = fs.readdirSync('src/lib/chapters');
+		const files = fs.readdirSync(folder).filter((f) => f.endsWith('.md'));
 		const slugs = files.map((f) => f.replace('.md', '')).sort();
 
 		return {
@@ -77,3 +79,28 @@ export async function load({ params }) {
 		};
 	}
 }
+
+// export async function load({ params }) {
+// 	const folder = 'src/lib/resources/keliling-dunia-dalam-delapan-puluh-hari-jules-verne';
+// 	const files = readdirSync(folder).filter((f) => f.endsWith('.md'));
+
+// 	const chapters = files.map((filename) => {
+// 		const slug = filename.replace('.md', '');
+// 		const fullPath = path.resolve(folder, filename);
+// 		const content = readFileSync(fullPath, 'utf-8');
+// 		const { data } = matter(content);
+
+// 		return {
+// 			slug,
+// 			chapter: data.chapter ?? '',
+// 			title: data.title ?? 'Tanpa Judul'
+// 		};
+// 	});
+
+// 	const currentChapter = chapters.find((c) => c.slug === params.slug);
+
+// 	return {
+// 		chapters: chapters.sort((a, b) => a.slug.localeCompare(b.slug)),
+// 		currentChapter: currentChapter
+// 	};
+// }

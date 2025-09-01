@@ -1,14 +1,6 @@
 <script lang="ts">
-	export let data;
-
-	$: currentChapter = data.currentChapter;
+	import { page } from '$app/state';
 </script>
-
-<svelte:head>
-	<title>
-		Bab {currentChapter?.chapter || ''} - Novel Keliling Dunia dalam Delapan Puluh Hari - Bahasa Indonesia
-	</title>
-</svelte:head>
 
 <main>
 	<div
@@ -18,7 +10,7 @@
 			<div
 				class="grid h-fit w-full grid-cols-1 place-items-center gap-[6px] rounded-2xl border-[1px] border-[#F5EEDD] bg-[#F5EEDD]/10 px-[36px] py-[24px] text-[#F5EEDD] backdrop-blur-md md:grid-cols-2 md:gap-[24px]"
 			>
-				<a href="/" class="flex w-full flex-col transition duration-300 hover:opacity-70">
+				<a href="/" class="flex w-full flex-col">
 					<div class="text-[24px] font-bold">Keliling Dunia dalam Delapan Puluh Hari</div>
 					<div class="text-[18px]">Jules Verne</div>
 				</a>
@@ -32,7 +24,21 @@
 		</div>
 	</div>
 
-	<article class="container mx-auto w-full px-6 py-10">
-		<slot />
+	<article
+		class="container mx-auto flex min-h-[500px] w-full flex-col justify-center gap-[24px] px-6 py-10 text-center"
+	>
+		<div class="flex w-full flex-col justify-center">
+			<h1 class="text-[98px] leading-[100%] font-bold text-[#06202B]">{page.status}</h1>
+			<h2 class="text-[32px] text-[#077A7D]">{page.error?.message}</h2>
+		</div>
+		<div class="flex w-full justify-center gap-[12px]">
+			<a href={`/`} class="w-fit">
+				<div
+					class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
+				>
+					<span>&#127968;</span> <span>Kembali ke Beranda</span>
+				</div>
+			</a>
+		</div>
 	</article>
 </main>

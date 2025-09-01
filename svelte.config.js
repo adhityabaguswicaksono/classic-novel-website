@@ -1,6 +1,5 @@
 import adapter from '@sveltejs/adapter-auto';
 import { mdsvex } from 'mdsvex';
-import path from 'path';
 import footnotes from 'remark-footnotes';
 
 const config = {
@@ -12,10 +11,7 @@ const config = {
 		})
 	],
 	kit: {
-		adapter: adapter(),
-		alias: {
-			$chapters: path.resolve('./src/lib/chapters')
-		}
+		adapter: adapter()
 	}
 };
 

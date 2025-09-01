@@ -2,8 +2,8 @@ import { readFileSync, readdirSync } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-export async function load({ params }) {
-	const folder = 'src/lib/chapters';
+export async function load() {
+	const folder = 'src/lib/resources/keliling-dunia-dalam-delapan-puluh-hari-jules-verne';
 	const files = readdirSync(folder).filter((f) => f.endsWith('.md'));
 
 	const chapters = files.map((filename) => {
@@ -11,7 +11,6 @@ export async function load({ params }) {
 		const fullPath = path.resolve(folder, filename);
 		const content = readFileSync(fullPath, 'utf-8');
 		const { data } = matter(content);
-
 		return {
 			slug,
 			chapter: data.chapter ?? '',
@@ -19,10 +18,7 @@ export async function load({ params }) {
 		};
 	});
 
-	const currentChapter = chapters.find((c) => c.slug === params.slug);
-
 	return {
-		chapters: chapters.sort((a, b) => a.slug.localeCompare(b.slug)),
-		currentChapter: currentChapter
+		chapters: chapters.sort((a, b) => a.slug.localeCompare(b.slug))
 	};
 }
