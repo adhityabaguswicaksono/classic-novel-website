@@ -14,7 +14,7 @@
 			gsap.from(el, {
 				scrollTrigger: {
 					trigger: el,
-					start: 'top 70%',
+					start: 'top 90%',
 					toggleActions: 'play none none reverse'
 				},
 				opacity: 0,
@@ -121,7 +121,7 @@
 						<a href={`/buku/${book.tautan}`} aria-label="link">
 							<div class="flex justify-end">
 								<div
-									class="from-kbk-main to-kbk-secondary z-10 flex h-[72px] w-[72px] items-center justify-center rounded-3xl bg-linear-to-b"
+									class="from-kbk-main to-kbk-secondary z-10 flex h-[72px] w-[72px] items-center justify-center rounded-3xl bg-linear-to-b transition-all duration-300 hover:scale-110 active:scale-105"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -174,6 +174,13 @@
 						</div>
 
 						<div class="z-10">
+							<div
+								class="top-0 left-0 mb-2 h-fit w-fit rounded-full px-2 py-1 text-xs text-white
+							{book.sudah_selesai ? 'bg-emerald-500' : 'bg-blue-500'}"
+							>
+								{book.sudah_selesai ? 'Sudah Selesai' : 'Belum Selesai'}
+							</div>
+
 							<h1 class="text-kbk-secondary text-3xl font-bold lg:text-4xl">{book.judul}</h1>
 							<span class="text-kbk-main text-xl">{book.penulis}</span>
 						</div>
