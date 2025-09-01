@@ -2,12 +2,11 @@
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
-	const pkg: any = import('gsap/ScrollTrigger');
-	const { ScrollTrigger } = pkg;
 
-	gsap.registerPlugin(ScrollTrigger);
+	onMount(async () => {
+		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+		gsap.registerPlugin(ScrollTrigger);
 
-	onMount(() => {
 		gsap.utils.toArray<HTMLElement>('.animate-section').forEach((el) => {
 			gsap.from(el, {
 				scrollTrigger: {

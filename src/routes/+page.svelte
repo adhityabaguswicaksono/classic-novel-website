@@ -2,15 +2,14 @@
 	import favicon from '$lib/assets/faviconKBK.svg';
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
-	const pkg: any = import('gsap/ScrollTrigger');
-	const { ScrollTrigger } = pkg;
-
-	gsap.registerPlugin(ScrollTrigger);
 
 	const props = $props();
 	const bookCatalogues = $state(props.data.books);
 
-	onMount(() => {
+	onMount(async () => {
+		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+		gsap.registerPlugin(ScrollTrigger);
+
 		gsap.utils.toArray<HTMLElement>('.animate-section').forEach((el) => {
 			gsap.from(el, {
 				scrollTrigger: {
