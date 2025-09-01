@@ -2,7 +2,8 @@
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+	import { ScrollTrigger } from 'gsap/all';
+
 	gsap.registerPlugin(ScrollTrigger);
 
 	onMount(() => {
