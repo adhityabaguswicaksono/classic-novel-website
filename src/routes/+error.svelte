@@ -11,7 +11,7 @@
 			gsap.from(el, {
 				scrollTrigger: {
 					trigger: el,
-					start: 'top 70%',
+					start: 'top 90%',
 					toggleActions: 'play none none reverse'
 				},
 				opacity: 0,
