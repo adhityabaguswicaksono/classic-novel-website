@@ -204,47 +204,56 @@
 				</div>
 			</div>
 
-			<div class="prose max-w-none text-justify text-xl leading-loose">
+			<div class="prose max-w-none text-justify leading-loose">
+				<h1>Koleksi Buku Klasik</h1>
+
 				<p>
-					Selamat datang di <strong>Koleksi Buku Klasik</strong> — tempat di mana
-					<em>karya sastra abadi</em> hadir dalam bahasa Indonesia untuk menemani perjalanan literasi
-					Anda.
+					Selamat datang di <strong>Koleksi Buku Klasik</strong>, sebuah ruang baca digital yang
+					menghadirkan
+					<em>karya-karya sastra abadi</em> dalam bahasa Indonesia sebagai upaya memperluas akses literasi
+					bagi masyarakat.
 				</p>
 
 				<p>
-					Kami percaya setiap buku klasik menyimpan <em>kisah, hikmah, dan imajinasi</em>
-					yang tetap hidup lintas generasi. Melalui website ini, Anda bisa menjelajahi berbagai judul
-					legendaris tanpa batasan jarak, biaya, atau ketersediaan cetakan fisik.
+					Kami meyakini bahwa setiap buku klasik menyimpan <em>nilai, pemikiran, dan imajinasi</em>
+					yang tetap relevan lintas generasi. Melalui situs ini, pembaca dapat menikmati karya-karya
+					sastra legendaris tanpa terhalang oleh jarak, biaya, ataupun keterbatasan cetakan fisik.
 				</p>
 
-				<h2>✨ Apa yang Kami Tawarkan?</h2>
+				<h2>Layanan yang Kami Sediakan</h2>
 				<ul>
 					<li>
-						Akses mudah ke <strong>buku-buku klasik dunia</strong> dalam terjemahan bahasa Indonesia.
+						Penyediaan akses mudah terhadap <strong>buku-buku klasik dunia</strong> dalam terjemahan
+						bahasa Indonesia.
 					</li>
-					<li>Terjemahan yang nyaman dibaca namun tetap setia pada karya aslinya.</li>
-					<li>Pengalaman membaca online yang <em>ringan, cepat, dan ramah pengguna</em>.</li>
+					<li>
+						Terjemahan yang berupaya menjaga kesetiaan pada naskah asli sekaligus tetap nyaman
+						dibaca.
+					</li>
+					<li>
+						Pengalaman membaca daring yang <em>ringan, cepat, serta ramah bagi pengguna</em>.
+					</li>
 				</ul>
 
-				<h2>🌍 Mengapa Membaca Buku Klasik?</h2>
+				<h2>Pentingnya Membaca Karya Klasik</h2>
 				<p>
-					Dari kisah petualangan yang mendebarkan, penemuan ilmiah yang imajinatif, hingga drama
-					kemanusiaan yang menyentuh, buku klasik adalah <strong>warisan sastra</strong> yang tak lekang
-					oleh waktu. Dengan sekali klik, Anda bisa membuka jendela menuju dunia penuh inspirasi.
+					Dari kisah petualangan yang menegangkan, pemikiran ilmiah yang imajinatif, hingga drama
+					kemanusiaan yang menggugah, karya klasik merupakan <strong>warisan sastra</strong> yang tidak
+					lekang oleh waktu. Melalui satu akses sederhana, pembaca dapat membuka jendela menuju khazanah
+					pengetahuan dan inspirasi.
 				</p>
 
 				<blockquote>
-					<p>
-						<em>
-							Buku klasik bukan hanya tentang masa lalu — ia adalah cermin untuk memahami masa kini.
-						</em>
-					</p>
+					<em>
+						"Karya klasik tidak hanya merekam masa lalu — tetapi juga menjadi cermin untuk memahami
+						masa kini."
+					</em>
 				</blockquote>
 
-				<h2>🚀 Mari Mulai Perjalanan</h2>
 				<p>
-					Yuk, jelajahi <strong>Koleksi Buku Klasik</strong> dan temukan kembali pesona karya-karya abadi.
-					Setiap halaman adalah undangan untuk melintasi waktu, budaya, dan imajinasi.
+					Mari menjelajahi <strong>Koleksi Buku Klasik</strong> dan menemukan kembali keindahan karya-karya
+					abadi. Setiap halaman merupakan undangan untuk menelusuri perjalanan lintas waktu, budaya,
+					dan gagasan besar umat manusia.
 				</p>
 			</div>
 		</div>
