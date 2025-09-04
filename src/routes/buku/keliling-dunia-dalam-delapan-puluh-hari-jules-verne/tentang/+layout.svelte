@@ -13,7 +13,10 @@
 			<div
 				class="grid h-fit w-full grid-cols-1 place-items-center gap-[6px] rounded-2xl border-[1px] border-[#F5EEDD] bg-[#F5EEDD]/10 px-[36px] py-[24px] text-[#F5EEDD] backdrop-blur-md md:grid-cols-2 md:gap-[24px]"
 			>
-				<a href="/" class="flex w-full flex-col transition duration-300 hover:opacity-70">
+				<a
+					href="/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne"
+					class="flex w-full flex-col transition duration-300 hover:opacity-70"
+				>
 					<div class="text-[24px] font-bold">Keliling Dunia dalam Delapan Puluh Hari</div>
 					<div class="text-[18px]">Jules Verne</div>
 				</a>
