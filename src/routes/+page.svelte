@@ -205,8 +205,6 @@
 			</div>
 
 			<div class="prose max-w-none text-justify leading-loose">
-				<h1>Koleksi Buku Klasik</h1>
-
 				<p>
 					Selamat datang di <strong>Koleksi Buku Klasik</strong>, sebuah ruang baca digital yang
 					menghadirkan
