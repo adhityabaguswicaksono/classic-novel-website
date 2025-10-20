@@ -1,301 +1,233 @@
+<script lang="ts">
+	import { slide } from 'svelte/transition';
+
+	const bookLink = 'perjalanan-ke-pusat-bumi-jules-verne';
+	const props = $props();
+	const content = $derived(props.data.content || '');
+	const chapter = $derived(props.data.chapter || '');
+	const title = $derived(props.data.title || '');
+	const bibliography = $derived(props.data.bibliography || []);
+	const pageStore = $derived(props.params.slug || 0);
+
+	let hideMenu = $state(true);
+	let showButtonToTheTop = $state(false);
+	let scrollProgress = $state(0);
+
+	const stateMenu = () => {
+		hideMenu = !hideMenu;
+	};
+
+	const buttonToTheTop = () => {
+		window.scrollTo({ top: 0 });
+	};
+
+	const showButtonToTheTopFunction = () => {
+		showButtonToTheTop = window.scrollY > 200;
+	};
+
+	const scrollProgressFunction = () => {
+		const scrollTop = window.scrollY;
+		const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+		scrollProgress = (scrollTop / docHeight) * 100;
+	};
+
+	$effect(() => {
+		// pageStore;
+		// setupFootnoteScrolling();
+
+		window.addEventListener('scroll', scrollProgressFunction);
+		window.addEventListener('scroll', showButtonToTheTopFunction);
+
+		return () => {
+			window.removeEventListener('scroll', scrollProgressFunction);
+			window.removeEventListener('scroll', showButtonToTheTopFunction);
+		};
+	});
+</script>
+
 <svelte:head>
-	<title>Bab 001 - Novel Perjalanan ke Pusat Bumi - Bahasa Indonesia</title>
+	<title>Bab {chapter} - Novel Perjalanan ke Pusat Bumi - Bahasa Indonesia</title>
 </svelte:head>
 
 <main>
 	<div class="fixed top-0 left-0 z-50 h-[4px] w-full bg-gray-200">
-		<!-- <div
-			class="h-[4px] bg-[#077A7D] transition-all duration-300"
-			style="width: {scrollProgress}%"
-		></div> -->
-		<div class="h-[4px] bg-[#488BC7] transition-all duration-300"></div>
-	</div>
-	<div
-		class="flex h-fit w-full flex-row gap-9 bg-gradient-to-b from-[#1B3348] to-black bg-cover bg-center px-3 py-14 text-2xl leading-[150%] text-white lg:px-14"
-	>
 		<div
-			class="sticky top-6 flex max-h-[95dvh] min-w-[350px] flex-col gap-6 rounded-3xl bg-[#488BC7]/25 p-9"
-		>
-			<div class="flex flex-col gap-1.5">
-				<div class="flex flex-col gap-0">
-					<span class="block w-full text-xl">Jules Verne</span>
-					<span class="block w-full text-2xl font-bold">Perjalanan ke Pusat Bumi</span>
-				</div>
-				<div class="flex flex-row items-center gap-2">
-					<span class="block w-full text-4xl font-bold">Daftar Isi</span>
-					<span>ICON</span>
-				</div>
-			</div>
-
-			<hr />
-
-			<div class="flex flex-col gap-3 overflow-auto">
-				<a href="/" class="flex w-fit flex-row gap-3 transition-all duration-200 hover:opacity-75">
-					<span>Icon</span>
-					<span class="block w-fit font-bold">Bab 1</span>
-				</a>
-				<a href="/" class="flex w-fit flex-row gap-3 transition-all duration-200 hover:opacity-75">
-					<span class="block w-fit">Bab 2</span>
-				</a>
-				<a href="/" class="flex w-fit flex-row gap-3 transition-all duration-200 hover:opacity-75">
-					<span class="block w-fit">Bab 3</span>
-				</a>
-			</div>
-		</div>
-		<div>
-			<div
-				class="sticky top-6 flex h-fit w-full flex-col gap-0 rounded-3xl bg-[#488BC7]/25 p-9 backdrop-blur-lg"
-			>
-				<span class="block w-full text-5xl font-bold">Bab I</span>
-				<span class="block w-full text-3xl">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				</span>
-			</div>
-			<div
-				class="prose mt-6 w-full max-w-none text-justify text-2xl leading-[150%] text-white prose-a:text-[#488BC7] prose-blockquote:font-normal prose-blockquote:not-italic prose-hr:my-6"
-			>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et ultrices dui. Vivamus
-					dui libero, egestas sit amet pretium eget, placerat eu elit. Fusce tristique urna id
-					molestie semper. Pellentesque eget finibus enim. Cras quis sem ut ligula facilisis
-					scelerisque ut non purus. Proin semper diam diam, non eleifend mauris mollis non. Morbi
-					volutpat rhoncus ante vitae sagittis. Vivamus sit amet ultrices erat. Donec quis ipsum
-					arcu. Ut vitae nibh ac ante placerat pellentesque. Class aptent taciti sociosqu ad litora
-					torquent per conubia nostra, per inceptos himenaeos.
-				</p>
-				<p>
-					Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-					Praesent vulputate lacus nulla, quis pulvinar sem lacinia ut. Aliquam augue massa,
-					ultrices vel fermentum id, dapibus fermentum orci. Morbi lobortis suscipit orci at
-					scelerisque. Aliquam euismod ac ante in pretium. Suspendisse potenti. Cras rutrum risus
-					velit, non malesuada ante fringilla et.
-				</p>
-				<p>
-					Fusce viverra neque lacus, sed faucibus orci luctus at. Nam eu aliquam purus, ac rhoncus
-					libero. Sed posuere pharetra vehicula. Phasellus laoreet feugiat neque, quis lobortis
-					velit porta vitae. Phasellus auctor vel felis vitae malesuada. Sed vehicula dapibus augue
-					at sodales. Donec at tincidunt ante. Maecenas ac justo a sem dictum blandit vitae at enim.
-					Aenean arcu tortor, fermentum a aliquet sed, bibendum vel lorem.
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et ultrices dui. Vivamus
-					dui libero, egestas sit amet pretium eget, placerat eu elit. Fusce tristique urna id
-					molestie semper. Pellentesque eget finibus enim. Cras quis sem ut ligula facilisis
-					scelerisque ut non purus. Proin semper diam diam, non eleifend mauris mollis non. Morbi
-					volutpat rhoncus ante vitae sagittis. Vivamus sit amet ultrices erat. Donec quis ipsum
-					arcu. Ut vitae nibh ac ante placerat pellentesque. Class aptent taciti sociosqu ad litora
-					torquent per conubia nostra, per inceptos himenaeos.
-				</p>
-				<p>
-					Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-					Praesent vulputate lacus nulla, quis pulvinar sem lacinia ut. Aliquam augue massa,
-					ultrices vel fermentum id, dapibus fermentum orci. Morbi lobortis suscipit orci at
-					scelerisque. Aliquam euismod ac ante in pretium. Suspendisse potenti. Cras rutrum risus
-					velit, non malesuada ante fringilla et.
-				</p>
-				<p>
-					Fusce viverra neque lacus, sed faucibus orci luctus at. Nam eu aliquam purus, ac rhoncus
-					libero. Sed posuere pharetra vehicula. Phasellus laoreet feugiat neque, quis lobortis
-					velit porta vitae. Phasellus auctor vel felis vitae malesuada. Sed vehicula dapibus augue
-					at sodales. Donec at tincidunt ante. Maecenas ac justo a sem dictum blandit vitae at enim.
-					Aenean arcu tortor, fermentum a aliquet sed, bibendum vel lorem.
-				</p>
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam et ultrices dui. Vivamus
-					dui libero, egestas sit amet pretium eget, placerat eu elit. Fusce tristique urna id
-					molestie semper. Pellentesque eget finibus enim. Cras quis sem ut ligula facilisis
-					scelerisque ut non purus. Proin semper diam diam, non eleifend mauris mollis non. Morbi
-					volutpat rhoncus ante vitae sagittis. Vivamus sit amet ultrices erat. Donec quis ipsum
-					arcu. Ut vitae nibh ac ante placerat pellentesque. Class aptent taciti sociosqu ad litora
-					torquent per conubia nostra, per inceptos himenaeos.
-				</p>
-				<p>
-					Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-					Praesent vulputate lacus nulla, quis pulvinar sem lacinia ut. Aliquam augue massa,
-					ultrices vel fermentum id, dapibus fermentum orci. Morbi lobortis suscipit orci at
-					scelerisque. Aliquam euismod ac ante in pretium. Suspendisse potenti. Cras rutrum risus
-					velit, non malesuada ante fringilla et.
-				</p>
-				<p>
-					Fusce viverra neque lacus, sed faucibus orci luctus at. Nam eu aliquam purus, ac rhoncus
-					libero. Sed posuere pharetra vehicula. Phasellus laoreet feugiat neque, quis lobortis
-					velit porta vitae. Phasellus auctor vel felis vitae malesuada. Sed vehicula dapibus augue
-					at sodales. Donec at tincidunt ante. Maecenas ac justo a sem dictum blandit vitae at enim.
-					Aenean arcu tortor, fermentum a aliquet sed, bibendum vel lorem.
-				</p>
-			</div>
-		</div>
-	</div>
-</main>
-
-<!-- <main>
-	<div class="fixed top-0 left-0 z-50 h-[4px] w-full bg-gray-200">
-		<div
-			class="h-[4px] bg-[#077A7D] transition-all duration-300"
+			class="h-[4px] bg-[#488BC7] transition-all duration-300"
 			style="width: {scrollProgress}%"
 		></div>
 	</div>
 
 	<div
-		class="h-fit w-full bg-gradient-to-br from-[#7AE2CF] via-[#077A7D] via-35% to-[#06202B] bg-cover bg-center"
+		class="flex h-fit w-full flex-col gap-6 bg-gradient-to-b from-[#1B3348] to-black bg-cover bg-center px-3 py-14 text-2xl leading-[150%] text-white lg:flex-row lg:p-14"
 	>
-		<div class="container mx-auto flex h-full items-center px-6 py-10">
-			<div
-				class="grid h-fit w-full grid-cols-1 place-items-center gap-[6px] rounded-2xl border-[1px] border-[#F5EEDD] bg-[#F5EEDD]/10 px-[36px] py-[24px] text-[#F5EEDD] backdrop-blur-md md:grid-cols-2 md:gap-[24px]"
-			>
-				<a
-					href="/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne"
-					class="flex w-full flex-col transition duration-300 hover:opacity-70"
+		<div
+			class={`static top-6 z-50 flex flex-col gap-1.5 rounded-3xl bg-[#488BC7]/25 p-9 transition-all duration-1000 ease-in-out lg:sticky ${hideMenu ? 'h-[200px] min-w-[150px] lg:h-[400px]' : 'h-[95dvh] min-w-[350px]'} overflow-hidden`}
+		>
+			<div class="flex w-full flex-col items-center gap-5">
+				<div class="flex w-full flex-row items-center gap-4 lg:flex-col">
+					<a
+						href={`/buku/${bookLink}`}
+						class="hidden w-full flex-col items-end gap-1.5 transition-all duration-200 hover:opacity-75 lg:flex lg:w-fit"
+						style={hideMenu ? 'writing-mode: sideways-lr; text-orientation: mixed;' : ''}
+					>
+						<span class={`w-full text-4xl font-bold ${hideMenu ? 'block' : 'hidden'}`}>
+							Daftar Isi
+						</span>
+						<span class="block w-full text-xl">Jules Verne</span>
+						<span class="block w-full text-2xl font-bold">Perjalanan ke Pusat Bumi</span>
+					</a>
+
+					<a
+						href={`/buku/${bookLink}`}
+						class="flex w-full flex-col items-end gap-1.5 transition-all duration-200 hover:opacity-75 lg:hidden lg:w-fit"
+					>
+						<span class={`w-full text-4xl font-bold ${hideMenu ? 'block' : 'hidden'}`}>
+							Daftar Isi
+						</span>
+						<span class="block w-full text-xl">Jules Verne</span>
+						<span class="block w-full text-2xl font-bold">Perjalanan ke Pusat Bumi</span>
+					</a>
+
+					<button
+						class={`flex h-9 min-h-9 w-9 min-w-9 cursor-pointer flex-row items-center justify-center rounded-full bg-white transition-all duration-200 ease-in-out hover:opacity-75  ${hideMenu ? '-rotate-90 lg:rotate-180' : 'hidden'}`}
+						onclick={stateMenu}
+						aria-label="Toggle Menu"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="10"
+							height="16"
+							viewBox="0 0 10 16"
+							fill="none"
+						>
+							<path
+								d="M8.2193 1.56055L1.78027 7.99957L8.2193 14.4386"
+								stroke="#488BC7"
+								stroke-width="2.92683"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</button>
+				</div>
+
+				<div
+					class={`flex w-full flex-col gap-6 transition-all duration-1000 ease-in-out ${hideMenu ? 'hidden' : ''}`}
 				>
-					<div class="text-[24px] font-bold">Keliling Dunia dalam Delapan Puluh Hari</div>
-					<div class="text-[18px]">Jules Verne</div>
-				</a>
-				<div class="flex w-full flex-col text-left md:text-right">
-					<div class="text-[14px]">
-						Terjemahan Bahasa Indonesia dari Novel Klasik <br />
-						<span class="font-bold italic">Around the World in Eighty Days by Jules Verne</span>
+					<div class="flex flex-row items-center gap-2">
+						<span class="block w-full text-4xl font-bold">Daftar Isi</span>
+						<button
+							class={`flex min-h-9 min-w-9 cursor-pointer flex-row items-center justify-center rounded-full bg-white transition-all duration-200 ease-in-out hover:opacity-75 ${hideMenu ? '-rotate-90 lg:rotate-180' : 'rotate-90 lg:rotate-0'}`}
+							onclick={stateMenu}
+							aria-label="Toggle Menu"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="10"
+								height="16"
+								viewBox="0 0 10 16"
+								fill="none"
+							>
+								<path
+									d="M8.2193 1.56055L1.78027 7.99957L8.2193 14.4386"
+									stroke="#488BC7"
+									stroke-width="2.92683"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								/>
+							</svg>
+						</button>
+					</div>
+
+					<hr />
+
+					<div class="flex flex-col gap-3 overflow-auto">
+						{#each bibliography as chapter}
+							<a
+								href={`/buku/${bookLink}/bab/${chapter.slug}`}
+								class="flex w-fit flex-row gap-3 transition-all duration-200 hover:opacity-75"
+								data-sveltekit-replacestate
+							>
+								<div
+									class={`rotate-180 cursor-pointer flex-row items-center justify-center rounded-full ${chapter.slug === pageStore ? 'flex' : 'hidden'}`}
+								>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="10"
+										height="16"
+										viewBox="0 0 10 16"
+										fill="none"
+									>
+										<path
+											d="M8.2193 1.56055L1.78027 7.99957L8.2193 14.4386"
+											stroke="#FFFFFF"
+											stroke-width="2.92683"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</div>
+								<span class={`block w-fit ${chapter.slug === pageStore ? 'font-bold' : ''}`}>
+									Bab {chapter.chapter}
+								</span>
+							</a>
+						{/each}
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<div>
+			<div
+				class="sticky top-6 z-50 flex h-fit w-full flex-col gap-4 rounded-3xl bg-[#488BC7]/25 p-9 backdrop-blur-lg"
+			>
+				<div class="flex flex-col gap-1">
+					<span class="block w-full text-5xl font-bold">Bab {chapter}</span>
+					{#if !showButtonToTheTop}
+						<span class="block w-full text-2xl" transition:slide={{ duration: 200 }}>{title}</span>
+					{/if}
+				</div>
+
+				<a
+					href={`/buku/${bookLink}`}
+					class="flex w-full flex-row items-center justify-between gap-3 transition-all duration-200 hover:opacity-75 lg:hidden"
+				>
+					<span class="block w-fit text-start text-sm font-bold">Perjalanan ke Pusat Bumi</span>
+					<span class="block w-fit text-end text-sm">Jules Verne</span>
+				</a>
+			</div>
+
+			<div
+				class="prose mt-6 w-full max-w-none text-justify text-2xl leading-[150%] text-white prose-headings:text-[#488BC7] prose-a:text-[#488BC7] prose-a:no-underline prose-blockquote:font-normal prose-blockquote:not-italic prose-strong:text-white prose-hr:my-6"
+			>
+				{@html content}
 			</div>
 		</div>
 	</div>
 
-	<article class="container mx-auto w-full px-6 py-10">
-		<div
-			class="sticky top-4 z-50 flex h-fit w-full flex-col place-items-center gap-[24px] rounded-2xl border-[1px] border-[#06202B] bg-[#F5EEDD]/10 p-[24px] text-[#06202B] backdrop-blur-md md:flex-row"
-		>
-			<div class="hidden md:flex md:justify-center">
-				{#if prevSlug}
-					<a
-						data-sveltekit-replacestate
-						href={`/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne/bab/${prevSlug}`}
-					>
-						<div
-							class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
-						>
-							<span>←</span>
-						</div>
-					</a>
-				{:else}
-					<a
-						data-sveltekit-replacestate
-						href={`/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne/`}
-					>
-						<div
-							class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
-						>
-							<span>&#127968;</span>
-						</div>
-					</a>
-				{/if}
-			</div>
-
-			<div class="flex w-full flex-col gap-[12px] text-center">
-				<div class="flex flex-col gap-[4px]">
-					<div class="text-[36px] leading-[100%] font-bold text-[#06202B]">
-						BAB {chapter}
-					</div>
-					{#if !showButton}
-						<div transition:fade class="text-[20px] leading-[100%] text-[#077A7D]">{title}</div>
-					{/if}
-				</div>
-				<div class="hidden text-[16px] text-[#06202B] md:inline-block">
-					Keliling Dunia dalam Delapan Puluh Hari - Jules Verne
-				</div>
-			</div>
-
-			<div class="flex w-full flex-row justify-between gap-[12px] md:hidden">
-				{#if prevSlug}
-					<a
-						data-sveltekit-replacestate
-						href={`/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne/bab/${prevSlug}`}
-					>
-						<div
-							class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
-						>
-							<span>←</span>
-						</div>
-					</a>
-				{:else}
-					<div class="h-[36px] w-17"></div>
-				{/if}
-
-				<a
-					data-sveltekit-replacestate
-					href={`/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne`}
-				>
-					<div
-						class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
-					>
-						<span>&#127968;</span>
-					</div>
-				</a>
-
-				{#if nextSlug}
-					<a
-						data-sveltekit-replacestate
-						href={`/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne/bab/${nextSlug}`}
-					>
-						<div
-							class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
-						>
-							<span>→</span>
-						</div>
-					</a>
-				{:else}
-					<div class="h-[36px] w-17"></div>
-				{/if}
-			</div>
-
-			<div class="hidden md:flex md:justify-center">
-				{#if nextSlug}
-					<a
-						data-sveltekit-replacestate
-						href={`/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne/bab/${nextSlug}`}
-					>
-						<div
-							class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
-						>
-							<span>→</span>
-						</div>
-					</a>
-				{:else}
-					<a
-						data-sveltekit-replacestate
-						href={`/buku/keliling-dunia-dalam-delapan-puluh-hari-jules-verne`}
-					>
-						<div
-							class="flex h-[36px] w-fit flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[24px] py-[18px] text-white transition duration-300 hover:opacity-70"
-						>
-							<span>&#127968;</span>
-						</div>
-					</a>
-				{/if}
-			</div>
-		</div>
-
-		<div
-			class="mx-auto prose mt-6 w-full max-w-none text-justify prose-a:text-[#077A7D] prose-blockquote:font-normal prose-blockquote:not-italic prose-hr:my-6"
-		>
-			{@html content}
-		</div>
-	</article>
-
-	{#if showButton}
-		<div class="fixed right-6 bottom-10 z-50" transition:fade={{ duration: 300 }}>
+	{#if showButtonToTheTop}
+		<div class="fixed right-3 bottom-6 z-50 lg:right-14" transition:slide={{ duration: 200 }}>
 			<button
-				class="flex h-[36px] w-fit cursor-pointer flex-row items-center gap-[12px] rounded-md border border-[#F5EEDD] bg-[#077A7D] px-[18px] py-[24px] text-white transition duration-300 hover:opacity-70"
+				class="flex min-h-14 min-w-14 rotate-90 cursor-pointer flex-row items-center justify-center rounded-full bg-white transition-all duration-200 hover:opacity-75"
 				onclick={buttonToTheTop}
+				aria-label="Kembali ke Atas"
 			>
-				<span>↑</span>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="10"
+					height="16"
+					viewBox="0 0 10 16"
+					fill="none"
+				>
+					<path
+						d="M8.2193 1.56055L1.78027 7.99957L8.2193 14.4386"
+						stroke="#488BC7"
+						stroke-width="2.92683"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
 			</button>
 		</div>
 	{/if}
-</main> -->
-
-<!-- <style global>
-	:global(.prose blockquote > *::before),
-	:global(.prose blockquote > *::after) {
-		content: none !important;
-	}
-</style> -->
+</main>
