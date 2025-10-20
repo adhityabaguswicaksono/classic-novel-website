@@ -31,10 +31,10 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<main class="w-full px-2 lg:px-14">
+<main class="font-outfit w-full px-2 lg:px-14">
 	<div class="animate-section h-screen min-h-[800px] w-full py-2 lg:py-12">
 		<div
-			class="from-kbk-main to-kbk-secondary flex h-full w-full flex-col justify-between gap-9 overflow-hidden rounded-3xl bg-linear-to-b p-6 text-white"
+			class="flex h-full w-full flex-col justify-between gap-9 overflow-hidden rounded-3xl bg-linear-to-b from-kbk-main to-kbk-secondary p-6 text-white"
 		>
 			<div class="z-10 text-right">
 				<span class="text-xl lg:text-2xl"
@@ -103,10 +103,10 @@
 		<div class="flex flex-col gap-9">
 			<div class="flex w-full flex-col items-center justify-between gap-2 lg:flex-row lg:gap-6">
 				<div class="w-full">
-					<h2 class="text-kbk-secondary text-6xl font-bold lg:text-7xl">Katalog Buku Klasik</h2>
+					<h2 class="text-6xl font-bold text-kbk-secondary lg:text-7xl">Katalog Buku Klasik</h2>
 				</div>
 				<div class="w-full lg:w-max lg:text-right">
-					<h3 class="text-kbk-secondary text-3xl font-bold lg:text-4xl lg:whitespace-nowrap">
+					<h3 class="text-3xl font-bold text-kbk-secondary lg:text-4xl lg:whitespace-nowrap">
 						Koleksi Buku Klasik
 					</h3>
 					<span class="text-md text-kbk-main">Terjemahan Bahasa Indonesia</span>
@@ -121,7 +121,7 @@
 						<a href={`/buku/${book.tautan}`} aria-label="link">
 							<div class="flex justify-end">
 								<div
-									class="from-kbk-main to-kbk-secondary z-10 flex h-[72px] w-[72px] items-center justify-center rounded-3xl bg-linear-to-b transition-all duration-300 hover:scale-110 active:scale-105"
+									class="z-10 flex h-[72px] w-[72px] items-center justify-center rounded-3xl bg-linear-to-b from-kbk-main to-kbk-secondary transition-all duration-300 hover:scale-110 active:scale-105"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -181,8 +181,8 @@
 								{book.sudah_selesai ? 'Sudah Selesai' : 'Belum Selesai'}
 							</div>
 
-							<h1 class="text-kbk-secondary text-3xl font-bold lg:text-4xl">{book.judul}</h1>
-							<span class="text-kbk-main text-xl">{book.penulis}</span>
+							<h1 class="text-3xl font-bold text-kbk-secondary lg:text-4xl">{book.judul}</h1>
+							<span class="text-xl text-kbk-main">{book.penulis}</span>
 						</div>
 					</div>
 				{/each}
@@ -194,10 +194,10 @@
 		<div class="flex flex-col gap-9">
 			<div class="flex w-full flex-col items-center justify-between gap-2 lg:flex-row lg:gap-6">
 				<div class="w-full">
-					<h2 class="text-kbk-secondary text-6xl font-bold lg:text-7xl">Tentang Web</h2>
+					<h2 class="text-6xl font-bold text-kbk-secondary lg:text-7xl">Tentang Web</h2>
 				</div>
 				<div class="w-full lg:w-max lg:text-right">
-					<h3 class="text-kbk-secondary text-3xl font-bold lg:text-4xl lg:whitespace-nowrap">
+					<h3 class="text-3xl font-bold text-kbk-secondary lg:text-4xl lg:whitespace-nowrap">
 						Koleksi Buku Klasik
 					</h3>
 					<span class="text-md text-kbk-main">Terjemahan Bahasa Indonesia</span>
@@ -259,7 +259,7 @@
 
 	<div class="animate-section h-fit w-full py-2 lg:py-12">
 		<div
-			class="from-kbk-main to-kbk-secondary h-full w-full overflow-hidden rounded-3xl bg-linear-to-b px-6 py-24 text-white"
+			class="h-full w-full overflow-hidden rounded-3xl bg-linear-to-b from-kbk-main to-kbk-secondary px-6 py-24 text-white"
 		>
 			<div class="flex flex-col gap-6">
 				<div class="flex w-full flex-col items-center justify-between gap-2 lg:flex-row lg:gap-8">
@@ -342,10 +342,3 @@
 		</div>
 	</div>
 </main>
-
-<style>
-	* {
-		@apply scroll-smooth;
-		font-family: 'Outfit', sans-serif;
-	}
-</style>
